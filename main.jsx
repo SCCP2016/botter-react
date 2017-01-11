@@ -3,8 +3,8 @@ class App extends React.Component {
         super(props);
 
         // ローカルストレージの内容をstateの初期値として使う。
-        const storageTweets = Immutable.List(JSON.parse(localStorage.getItem("tweets")));
-        this.state = { text: "", tweets: storageTweets };
+        const { tweets } = this.props;
+        this.state = { text: "", ...{ tweets } };
     }
 
     // inputの内容が変わったら、textに内容を反映。
@@ -42,6 +42,8 @@ class App extends React.Component {
     }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'));
+const tweets = Immutable.List(JSON.parse(localStorage.getItem("tweets")));
+
+ReactDOM.render(<App ...{tweets}/>, document.getElementById('app'));
 // 消す魔法
 // localStorage.clear();
